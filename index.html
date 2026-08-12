@@ -42,7 +42,35 @@
   button:active{transform:translateY(3px);box-shadow:0 2px 0 #d79a00}
   .controls{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
   .controls button{font-size:24px;padding:13px 4px}
-  .controls .wide{grid-column:span 3;font-size:18px;background:#6ae08a;box-shadow:0 4px 0 #2aa24e;margin-top:18px}
+  .controls .wide{grid-column:span 3;font-size:18px;background:#6ae08a;box-shadow:0 4px 0 #2aa24e;margin-top:34px}
+  .nextFloat{
+    width:min(94vw,360px);
+    margin:6px auto 2px;
+    padding:5px 12px;
+    border-radius:16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    background:linear-gradient(180deg,rgba(255,255,255,.98),rgba(230,247,255,.96));
+    border:2px solid #ffffff;
+    box-shadow:0 6px 16px rgba(0,55,115,.22),inset 0 0 0 1px rgba(34,119,180,.10);
+    pointer-events:none;
+  }
+  .nextFloatLabel{
+    font-size:17px;
+    font-weight:1000;
+    color:#174e7a;
+    line-height:1;
+    letter-spacing:.08em;
+  }
+  .nextFloat #next{
+    display:block;
+    width:62px;
+    height:62px;
+    background:transparent;
+    box-shadow:none;
+  }
   .help{font-size:12px;line-height:1.5}
   .overlay{
     position:absolute;inset:10px;display:flex;align-items:center;justify-content:center;
@@ -68,64 +96,72 @@
     100%{transform:translate(var(--dx),var(--dy)) scale(1.8);opacity:0}
   }
 
+
+  .puyoBurst{
+    position:absolute;
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    pointer-events:none;
+    z-index:8;
+    animation:puyoPop .55s ease-out forwards;
+    box-shadow:0 0 16px rgba(255,255,255,.9);
+  }
+  @keyframes puyoPop{
+    0%{transform:scale(.7);opacity:1}
+    45%{transform:scale(1.35);opacity:1}
+    100%{transform:scale(2.2);opacity:0}
+  }
+
   @media(max-width:650px){
-    body{align-items:flex-start;overflow:hidden}
-    .wrap{
-      padding:4px 8px 6px;
-      height:100svh;
-      display:flex;
-      flex-direction:column;
-      justify-content:flex-start;
+    html,body{width:100%;height:100%;margin:0;overflow:hidden}
+    body{align-items:flex-start;min-height:100dvh}
+    .wrap{width:100%;height:100dvh;padding:4px 6px;display:flex;flex-direction:column;overflow:hidden}
+    h1{flex:0 0 auto;font-size:20px;line-height:1;margin:1px 0 3px}
+    .game{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;gap:3px;overflow:hidden}
+    .game > div:first-child{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;align-items:center}
+    .boardbox{flex:1 1 auto;min-height:0;width:auto;padding:5px;border-radius:14px;display:flex;align-items:center;justify-content:center;max-height:calc(100dvh - 205px)}
+    #game{display:block;width:auto;height:100%;max-height:calc(100dvh - 215px);max-width:92vw;aspect-ratio:1/2;margin:auto}
+    .controls{flex:0 0 auto;width:min(94vw,360px);margin:3px auto 0;gap:4px;grid-template-columns:repeat(3,1fr)}
+    .controls button{min-height:38px;padding:5px 2px;font-size:19px;border-radius:11px}
+    .controls .wide{min-height:38px;margin-top:40px;padding:5px 2px;font-size:14px}
+    .nextFloat{
+      flex:0 0 auto;
+      width:min(94vw,360px);
+      margin:4px auto 1px;
+      min-height:52px;
+      padding:3px 10px;
+      border-radius:13px;
+      gap:10px;
     }
-    h1{font-size:24px;margin:0 0 3px;line-height:1.05}
-    .game{
-      grid-template-columns:1fr;
-      gap:4px;
-      flex:1;
-      min-height:0;
-    }
-    .boardbox{
-      padding:6px;
-      border-radius:14px;
-      max-height:calc(100svh - 185px);
-    }
-    #game{
-      width:auto;
-      height:calc(100svh - 200px);
-      max-height:600px;
-      aspect-ratio:1/2;
-      margin:auto;
-    }
-    .controls{
-      gap:5px;
-      margin-top:5px;
-    }
-    .controls button{
-      font-size:22px;
-      padding:8px 4px;
-      min-height:44px;
-    }
-    .controls .wide{
-      margin-top:18px;
-      font-size:16px;
-      padding:8px 4px;
-    }
-    .side{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:4px;
-    }
-    .side .panel{padding:5px 8px;border-radius:12px}
-    .side .panel:nth-child(5),
-    .side .panel:nth-child(6){display:none}
-    .label{font-size:11px}
-    .value{font-size:18px;line-height:1.1}
+    .nextFloatLabel{font-size:16px}
+    .nextFloat #next{width:48px;height:48px}
+    .side{flex:0 0 auto;width:min(94vw,360px);margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:3px}
+    .side .panel{padding:3px 4px;border-radius:9px;border-width:1px;min-height:34px}
+    .side .panel:nth-child(5){display:none}
+    .label{font-size:8px;line-height:1;letter-spacing:.04em}
+    .value{font-size:14px;line-height:1.05}
+    .overlay{inset:5px;padding:10px;border-radius:10px}
+    .overlay h2{font-size:28px}
+    .chain{font-size:32px}
+    .nextFloat{top:9px;right:9px;width:66px;padding:4px;border-radius:12px}
+    .nextFloatLabel{font-size:11px}
+    .nextFloat #next{width:54px;height:54px}
+  }
+  @media(max-width:650px) and (max-height:740px){
+    .boardbox{max-height:calc(100dvh - 158px)}
+    #game{max-height:calc(100dvh - 168px)}
+    .controls{margin-top:2px}
+    .controls button{min-height:34px;font-size:17px;padding:3px 2px}
+    .controls .wide{min-height:34px;margin-top:32px;font-size:13px}
+    .nextFloat{min-height:44px;margin:2px auto 0;padding:2px 8px}.nextFloatLabel{font-size:14px}.nextFloat #next{width:40px;height:40px}
+    .side .panel{min-height:29px;padding:2px 3px}
+    .label{font-size:7px}.value{font-size:12px}
   }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h1>ぷよぷよ風パズル</h1>
   <div class="game">
     <div>
       <div class="boardbox">
@@ -140,6 +176,10 @@
           </div>
         </div>
       </div>
+      <div class="nextFloat">
+        <div class="nextFloatLabel">つぎ</div>
+        <canvas id="next" width="100" height="100"></canvas>
+      </div>
       <div class="controls">
         <button id="left">◀</button>
         <button id="rotate">⟳</button>
@@ -147,30 +187,8 @@
         <button id="down" class="wide">▼ すばやく落とす</button>
       </div>
     </div>
-    <div class="side">
-      <div class="panel">
-        <div class="label">SCORE</div><div id="score" class="value">0</div>
-      </div>
-      <div class="panel">
-        <div class="label">LEVEL</div><div id="level" class="value">1</div>
-      </div>
-      <div class="panel">
-        <div class="label">TARGET</div><div id="target" class="value">20</div>
-      </div>
-      <div class="panel">
-        <div class="label">CHAIN</div><div id="best" class="value">0</div>
-      </div>
-      <div class="panel">
-        <div class="label">NEXT</div>
-        <div class="nextWrap"><canvas id="next" width="100" height="100"></canvas></div>
-      </div>
-      <div class="panel help">
-        PC：← → 移動 / ↑ 回転 / ↓ 落下 / Space 一気に落下<br>
-        スマホ：下のボタンで操作
-      </div>
     </div>
   </div>
-</div>
 <script>
 (() => {
   const COLS=6, ROWS=12, CELL=50;
@@ -184,7 +202,7 @@
   let board, pair, nextPair, score=0, bestChain=0, running=false, resolving=false;
   let last=0, dropTimer=0, dropInterval=700;
   let level=1, clearedThisLevel=0;
-  const TARGETS=[20,25,30,35,40,45,50,55,60];
+  const TARGETS=[20,25,30,35,40,45,50];
 
   function emptyBoard(){ return Array.from({length:ROWS},()=>Array(COLS).fill(null)); }
   function randColor(){ return Math.floor(Math.random()*COLORS.length); }
@@ -289,7 +307,7 @@
   }
   async function levelClear(){
     resolving=true;
-    if(level>=9){
+    if(level>=7){
       await gameClear();
       return;
     }
@@ -311,12 +329,66 @@
   async function gameClear(){
     running=false; resolving=true;
     stopBGM();
-    board=emptyBoard(); draw();
+
+    await burstAllPuyos();
+
+    board=emptyBoard();
+    draw();
     playTone('clear');
     makeClearFX();
-    overlay.innerHTML=`<div><h2 style="font-size:48px">GAME CLEAR!</h2><p>9面クリア！ おめでとう！</p><button id="again">もう一度遊ぶ</button></div>`;
+
+    overlay.innerHTML=`<div><h2 style="font-size:48px">GAME CLEAR!</h2><p>7面クリア！ おめでとう！</p><button id="again">もう一度遊ぶ</button></div>`;
     overlay.classList.remove('hidden');
     document.getElementById('again').onclick=()=>start();
+  }
+
+  async function burstAllPuyos(){
+    const boardRect=canvas.getBoundingClientRect();
+    const boxRect=canvas.parentElement.getBoundingClientRect();
+    const scaleX=boardRect.width/canvas.width;
+    const scaleY=boardRect.height/canvas.height;
+
+    const targets=[];
+    for(let y=0;y<ROWS;y++){
+      for(let x=0;x<COLS;x++){
+        if(board[y][x]!=null){
+          targets.push({x,y,c:board[y][x]});
+        }
+      }
+    }
+
+    // If board is nearly empty, create a celebratory burst field.
+    if(targets.length===0){
+      for(let i=0;i<18;i++){
+        targets.push({
+          x:Math.floor(Math.random()*COLS),
+          y:Math.floor(Math.random()*ROWS),
+          c:Math.floor(Math.random()*COLORS.length)
+        });
+      }
+    }
+
+    for(let i=0;i<targets.length;i++){
+      const p=targets[i];
+      const b=document.createElement('div');
+      b.className='puyoBurst';
+      b.style.background=COLORS[p.c];
+      const px=(boardRect.left-boxRect.left)+(p.x*CELL+CELL/2)*scaleX;
+      const py=(boardRect.top-boxRect.top)+(p.y*CELL+CELL/2)*scaleY;
+      b.style.left=(px-17)+'px';
+      b.style.top=(py-17)+'px';
+      canvas.parentElement.appendChild(b);
+
+      if(p.y>=0 && p.y<ROWS && p.x>=0 && p.x<COLS){
+        board[p.y][p.x]=null;
+      }
+      draw();
+
+      setTimeout(()=>b.remove(),650);
+      await sleep(55);
+    }
+
+    await sleep(500);
   }
 
   function makeClearFX(){
@@ -444,10 +516,10 @@
     drawPuyo(nctx,50,70,COLORS[nextPair.a],20);
   }
   function updateUI(){
-    scoreEl.textContent=score;
-    bestEl.textContent=bestChain;
-    levelEl.textContent=level;
-    targetEl.textContent=Math.max(0,TARGETS[level-1]-clearedThisLevel);
+    if(scoreEl) scoreEl.textContent=score;
+    if(bestEl) bestEl.textContent=bestChain;
+    if(levelEl) levelEl.textContent=level;
+    if(targetEl) targetEl.textContent=Math.max(0,TARGETS[level-1]-clearedThisLevel);
   }
 
   function tick(t){
